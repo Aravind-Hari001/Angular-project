@@ -1,0 +1,26 @@
+.delete-box{
+    position: absolute;
+    margin-left: 30%;
+    margin-right: 30%;
+    z-index: 5;
+}
+.delete-box .close,.Employee-form .close{
+    border:0;
+    outline: 0;
+}
+.Employee-card{
+    width: 90%;
+}
+.container-fluid .card .card-body .row{
+    margin-top: 5mm;
+}
+.display{
+    display: none;
+}
+.Employee-form{
+    position: absolute;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    z-index: 6;
+}

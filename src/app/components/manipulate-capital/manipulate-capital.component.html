@@ -1,0 +1,79 @@
+<div class="container-fluid mb-5 Capital-form">
+
+    <form #empForm="ngForm" (ngSubmit)="submit()" novalidate>
+        <div class="row row-sm card box-shadow-0">
+            <div class="card-header">
+                <div class="row delete-box">
+                    <h4 class="card-title mb-1 col-10">&nbsp;{{headding}}</h4>
+                    <button type="button" class="close col-1" (click)="close_capital()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body pt-2">
+
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Partner Name:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="text" #name="ngModel" [(ngModel)]="partner.name"
+                            name="emp-name" [disabled]="disable" [class.is-invalid]="name.invalid && name.touched"
+                            required>
+                        <small [class.d-none]="name.valid || name.untouched" class="text-danger">Partner Name is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Inversment Date:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="date" #inv_dt="ngModel" [(ngModel)]="partner.inversmentDate"
+                            name="inversmentDate" [disabled]="disable"
+                            [class.is-invalid]="inv_dt.invalid && inv_dt.touched" required>
+                        <small [class.d-none]="inv_dt.valid || inv_dt.untouched" class="text-danger">Inversment Date is
+                            invalid</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Amount:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="number" #amount="ngModel" [(ngModel)]="partner.amount"
+                            name="amount" [disabled]="disable" [class.is-invalid]="amount.invalid && amount.touched"
+                            required>
+                        <small [class.d-none]="amount.valid || amount.untouched" class="text-danger">Amount is
+                            invalid</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Source :</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="text" #source="ngModel" [(ngModel)]="partner.source"
+                            name="source" [disabled]="disable" [class.is-invalid]="source.touched && source.invalid"
+                            required>
+                        <small [class.d-none]="source.valid || source.untouched" class="text-danger">Source is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Comments:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <textarea class="form-control" #comments="ngModel" [(ngModel)]="partner.comments"
+                            name="comments" [disabled]="disable"
+                            [class.is-invalid]="comments.invalid && comments.touched" required></textarea>
+                        <small [class.d-none]="comments.valid || comments.untouched" class="text-danger">Comments is
+                            required</small>
+                    </div>
+                </div>
+
+                <div class="row text-right">
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-md mx-3" (click)="cancel_click()"
+                            title="Cancel">Cancel
+                        </button>
+                        <button type="submit" [class.d-none]="disable" [disabled]="empForm.form.invalid"
+                            class="btn btn-primary btn-md ml-2" title="Save">Generate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,94 @@
+<div class="container-fluid mb-5 Employee-form">
+
+    <form #empForm="ngForm" (ngSubmit)="submit()" novalidate>
+        <div class="row row-sm card box-shadow-0">
+            <div class="card-header">
+                <div class="delete-box row">
+                    <h4 class="card-title mb-1 col-11">&nbsp;{{headding}}</h4>
+                    <button type="button" class="close coll-1" (click)="close_employee()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body pt-2">
+
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Branch Name:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <select class="form-control" name="branch">
+                            <option *ngFor="let branch of branches" [disabled]="disable">{{branch}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Employee Name:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="text" #name="ngModel" [(ngModel)]="emp.name" name="emp-name"
+                            [disabled]="disable" [class.is-invalid]="name.invalid && name.touched" required>
+                        <small [class.d-none]="name.valid || name.untouched" class="text-danger">Name is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Email :</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="email" #email="ngModel" [(ngModel)]="emp.email" name="email"
+                            [disabled]="disable" [class.is-invalid]="email.touched && email.invalid" required>
+                        <small [class.d-none]="email.valid || email.untouched" class="text-danger">Email is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Address:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <textarea class="form-control" #address="ngModel" [(ngModel)]="emp.address" name="address"
+                            [disabled]="disable" [class.is-invalid]="address.invalid && address.touched"
+                            required></textarea>
+                        <small [class.d-none]="address.valid || address.untouched" class="text-danger">Address is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Contact Number:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="number" #cell="ngModel" [(ngModel)]="emp.cell" name="cell"
+                            [disabled]="disable" [class.is-invalid]="cell.invalid && cell.touched" required>
+                        <small [class.d-none]="cell.valid || cell.untouched" class="text-danger">Contact Number is
+                            invalid</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Date Of Joining:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="date" #doj="ngModel" [(ngModel)]="emp.doj" name="doj"
+                            [disabled]="disable" [class.is-invalid]="doj.invalid && doj.touched" required>
+                        <small [class.d-none]="doj.valid || doj.untouched" class="text-danger">Date of joining is
+                            invalid</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Active:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input type="radio" (click)="check('yes')" [checked]="active.yes" name="active" id="yes">Yes
+                        &nbsp;
+                        <input type="radio" (click)="check('no')" [checked]="active.no" name="active" id="no">No
+                        <small *ngIf="not_checked" class="text-danger d-block">Please select employee is active or
+                            not</small>
+                    </div>
+                </div>
+
+                <div class="row text-right">
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-md mx-3" (click)="cancel_click()"
+                            title="Cancel">Cancel
+                        </button>
+                        <button type="submit" [class.d-none]="disable"
+                            [disabled]="empForm.form.invalid && !(active.yes || active.no)"
+                            class="btn btn-primary btn-md ml-2" title="Save">Generate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

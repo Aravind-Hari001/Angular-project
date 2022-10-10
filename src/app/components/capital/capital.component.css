@@ -1,0 +1,13 @@
+.delete-box{
+    position: absolute;
+    margin-left: 30%;
+    margin-right: 30%;
+    z-index: 5;
+}
+.delete-box .close{
+    border:0;
+    outline: 0;
+}
+.Capital-card{
+    width: 90%;
+}

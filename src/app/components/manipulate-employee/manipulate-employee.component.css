@@ -1,0 +1,14 @@
+.container-fluid .card .card-body .row{
+    margin-top: 5mm;
+}
+.display{
+    display: none;
+}
+.Employee-form{
+    width: 60%;
+    margin-top: 5%;
+}
+.delete-box .close{
+    border:0;
+    outline: 0;
+}

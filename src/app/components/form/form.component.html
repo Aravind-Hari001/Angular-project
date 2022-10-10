@@ -1,0 +1,133 @@
+<div>
+    <form [formGroup]="Form" (ngSubmit)="submited()">
+        <h4>Enroll Now</h4>
+        <!-- <fieldset formGroupName="data"> -->
+        <label>Name :</label>
+        <input type="text" formControlName="name" class="form-control">
+        <div class="text-danger">
+            <div *ngIf="Form.controls.name.touched && Form.controls.name.invalid">Name is required</div>
+        </div>
+
+        <label>Email :</label>
+        <input type="email" formControlName="email" class="form-control">
+        <div class="text-danger">
+            <div *ngIf="Form.controls.email.touched && Form.controls.email.hasError('required')">Email is required.
+            </div>
+            <div
+                *ngIf="Form.controls.email.touched && Form.controls.email.invalid &&  (!Form.controls.email.hasError('required'))">
+                Email is Invalid.</div>
+        </div>
+        <label>Date Of Birth :</label>
+        <input type="date" formControlName="dob" class="form-control">
+        <div class="text-danger">
+            <div *ngIf="Form.controls.dob.touched && Form.controls.dob.hasError('required')">Date Of Birth is required.
+            </div>
+        </div>
+        <label>Gender :</label>&nbsp;
+        <input type="radio" name="gender" [checked]="male" #Male (click)="valid_gender('male',Male.checked)"><label><b>&nbsp; Male</b></label>&nbsp;&nbsp;
+        <input type="radio" name="gender" [checked]="female" #Female (click)="valid_gender('female',Female.checked)"><label><b>&nbsp; Female</b></label><br>
+        <div class="text-danger">
+            <div *ngIf="!(val_gender)">Gender is
+                required.
+            </div>
+        </div>
+        <label>Mobile Number :</label>
+        <input type="number" formControlName="cell" (keyup)="valid_cell()" class="form-control">
+        <div class="text-danger">
+            <div *ngIf="Form.controls.cell.touched && Form.controls.cell.hasError('required')">Mobile number is
+                required.</div>
+            <div *ngIf="Form.controls.cell.touched && val_cell &&(!Form.controls.cell.hasError('required'))"
+                id="mobile_inv">Mobile number is Invalid.</div>
+        </div>
+        <label>Addrress :</label>
+        <textarea formControlName="address" class="form-control"></textarea>
+        <div class="text-danger">
+            <div *ngIf="Form.controls.address.touched && Form.controls.address.hasError('required')">Address is
+                required.</div>
+        </div>
+
+        <div formArrayName="skills">
+            <label>Skils :</label>
+            <div *ngFor="let skill of skills.controls;let i=index">
+                <div [formGroupName]="i">
+                    <input type="checkbox" formControlName="checked"/> {{skill.get('name')?.value}}
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <img src="../../../assets/images/captcha.jpg" alt="captcha">
+            <div class="card-body">
+                <label>Enter Captcha :</label>
+                <input type="text" formControlName="captcha"  
+                    #captcha (keyup)="validate_captcha(captcha.value)" class="form-control">
+                <div class="text-danger">
+                    <div *ngIf="Form.controls.captcha.touched && Form.controls.captcha.hasError('required')">Captcha is
+                        required.</div>
+                    <div
+                        *ngIf="Form.controls.captcha.dirty && (!val_captcha) &&(!Form.controls.captcha.hasError('required'))">
+                        Captcha is Invalid.</div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {{this.Form.getRawValue() | json}}
+        </div>
+
+        <button type="submit" 
+        *ngIf="this.Form.controls.name.valid && this.Form.controls.email.valid && this.Form.controls.dob.valid && (this.male || this.female) && (!this.val_cell) && this.Form.controls.address.valid && this.val_captcha"
+         class="form-control">Enroll</button>
+    </form>
+</div>
+<style>
+    form {
+        width: 40%;
+        padding: 20px;
+        margin-left: 30%;
+        margin-right:30%;
+        box-shadow: 0 0 15px rgba(0, 0, 0,0.3),
+        0 0 30px rgba(0, 0, 0,0.3),
+        0 0 45px rgba(0, 0, 0,0.3),
+        0 0 60px rgba(0, 0, 0,0.3);
+        border-radius: 10px;
+        margin-bottom: 5mm;
+        margin-top: 5mm;
+    }
+    form h4{
+        text-align: center;
+        font-size: 8mm;
+    }
+    form h4::after{
+        content: '';
+        display: block;
+        width: 15%;
+        height: 3px;
+        background: red;
+        margin-left: 43%;
+        margin-top: 1mm;
+        border-radius: 5px;
+    }
+    form .card img{
+        height: 5cm;
+    }
+    form button{
+        border: none;
+        border-radius: 5px;
+        background: rgba(185, 184, 184, 0.589);
+        padding: 10px;
+        width: 40%;
+        margin-top: 5mm;
+        margin-left: 30%;
+        margin-right: 30%;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+    form button:focus,form button:hover{
+        border: none;
+        outline: none;
+        background: lightgreen;
+        box-shadow: 0 0 5px rgba(35, 167, 105, 0.3),
+        0 0 10px rgba(35, 167, 105, 0.3),
+        0 0 15px rgba(35, 167, 105, 0.3),
+        0 0 20px rgba(35, 167, 105, 0.3);
+    }
+</style>

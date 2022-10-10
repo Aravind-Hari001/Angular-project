@@ -1,0 +1,170 @@
+
+<div class="container-fluid mb-5 Employee-form" *ngIf="add">
+
+    <form #empForm="ngForm" (ngSubmit)="add_employee(empForm.value)" novalidate>
+        <div class="row row-sm card box-shadow-0">
+            <div class="card-header">
+                <div class="row">
+                    <h4 class="card-title mb-1 col-11">&nbsp;{{headding}}</h4>
+                    <button type="button" class="close col-1" (click)="close_employee()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body pt-2">
+
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Branch Name:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <select class="form-control" (change)="get_branch_name($event)" id="branch">
+                            <option *ngFor="let branch of branches" [disabled]="disable" [value]="branch">{{branch}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Employee Name:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="text" #name="ngModel" [(ngModel)]="emp.name" name="emp_name"
+                            [disabled]="disable" [class.is-invalid]="name.invalid && name.touched" id="name" required>
+                        <small [class.d-none]="name.valid || name.untouched" class="text-danger">Name is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Email :</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="email" #email="ngModel" [(ngModel)]="emp.email" name="email"
+                            [disabled]="disable" [class.is-invalid]="email.touched && email.invalid" id="email" required>
+                        <small [class.d-none]="email.valid || email.untouched" class="text-danger">Email is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Address:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <textarea class="form-control" #address="ngModel" [(ngModel)]="emp.address" name="address"
+                            [disabled]="disable" [class.is-invalid]="address.invalid && address.touched"
+                            required>{{emp.address}}</textarea>
+                        <small [class.d-none]="address.valid || address.untouched" class="text-danger">Address is
+                            required</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Contact Number:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="number" #cell="ngModel" [(ngModel)]="emp.cell" name="cell"
+                            [disabled]="disable" [class.is-invalid]="cell.invalid && cell.touched" id="cell" required>
+                        <small [class.d-none]="cell.valid || cell.untouched" class="text-danger">Contact Number is
+                            invalid</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Date Of Joining:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input class="form-control" type="date" #doj="ngModel" [(ngModel)]="emp.doj" name="doj"
+                            [disabled]="disable" [class.is-invalid]="doj.invalid && doj.touched" id="doj" required>
+                        <small [class.d-none]="doj.valid || doj.untouched" class="text-danger">Date of joining is
+                            invalid</small>
+                    </div>
+                </div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4"><label>Active:</label></div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input type="radio" (click)="check('yes')" [checked]="active.yes" name="active" id="yes">Yes
+                        &nbsp;
+                        <input type="radio" (click)="check('no')" [checked]="active.no" name="active" id="no">No
+                        <small *ngIf="not_checked" class="text-danger d-block">Please select employee is active or
+                            not</small>
+                    </div>
+                </div>
+
+                <div class="row text-right">
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-md mx-3" (click)="close_employee()"
+                            title="Cancel">Cancel
+                        </button>
+                        <button type="submit" [class.d-none]="disable"
+                            [disabled]="empForm.form.invalid && !(active.yes || active.no)"
+                            class="btn btn-primary btn-md ml-2" title="Save">Generate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card text-center delete-box" style="width:40%;" *ngIf="if_delete">
+
+    <div class="card-head">
+        <div class="row">
+            <h5 class="card-title col-10 text-danger">Alert</h5>
+            <button type="button" class="close col-1" (click)="close_delete()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <p>Are you surely want to delete this ?</p>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-danger mx-2" (click)="delete_employee()">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close_delete()">No</button>
+    </div>
+
+</div>
+<div class="card Employee-card container-fluid my-2">
+    <div class="card-header pb-0">
+        <div class="d-flex justify-content-between">
+            <h4 class="card-title mg-b-0">
+                Employees List
+            </h4>
+            <div class="d-flex my-xl-auto right-content">
+                <button class="btn btn-primary" (click)="disp_add_employee()">Add Employees</button>
+            </div>
+        </div>
+        <p class="txt-12 tx-gray-500 mb-2"></p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive userlist-table">
+            <table class="table card-table table-striped table-vcenter text-nowrap" id="example1">
+                <thead>
+                    <tr>
+                        <th class=" border-bottom-0">S.No.</th>
+                        <th class=" border-bottom-0">Name</th>
+                        <th class=" border-bottom-0">Email</th>
+                        <th class=" border-bottom-0">Branch</th>
+                        <th class=" border-bottom-0">Address</th>
+                        <th class=" border-bottom-0">Contact Number</th>
+                        <th class=" border-bottom-0">Date of Joining</th>
+                        <th class=" border-bottom-0">Active</th>
+                        <th class="wd-150 border-bottom-0">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of emp_data;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.email}}</td>
+                        <td>{{data.branch}}</td>
+                        <td>{{data.address}}</td>
+                        <td>{{data.cell}}</td>
+                        <td>{{data.doj}}</td>
+                        <td>{{data.isactive}}</td>
+                        <td class="d-flex justify-content-between">
+                            <a title="View Settings" class="btn btn-sm btn-primary pointer" (click)="view_employee(i)">
+                                <i class="fa-solid fa-eye text-light"></i>
+                            </a>
+                            <a title="Edit Settings" class="btn btn-sm btn-warning pointer" (click)="disp_edit_employee(i)">
+                                <i class="fa-solid fa-pen-to-square text-light"></i>
+                            </a>
+                            <a title="Delete Settings" class="btn btn-sm btn-danger pointer" (click)="alert_delete(i)">
+                                <i class="fa-solid fa-trash text-light"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

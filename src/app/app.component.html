@@ -1,0 +1,6 @@
+<div [ngSwitch]="path">
+    <div *ngSwitchCase="'/form'">
+        <app-form [val_captcha]="captcha_res_val" (newItemEvent)="captcha_res($event)"></app-form>
+    </div>
+    <router-outlet *ngSwitchDefault></router-outlet>
+</div>

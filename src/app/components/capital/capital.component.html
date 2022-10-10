@@ -1,0 +1,69 @@
+<div class="card text-center delete-box" style="width:40%;" *ngIf="if_delete">
+    <div class="card-head">
+        <div class="row">
+            <h5 class="card-title col-10 text-danger">Alert</h5>
+            <button type="button" class="close col-1" (click)="close_delete()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <p>Are you surely want to delete this ?</p>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-danger mx-2" (click)="delete_employee()">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close_delete()">No</button>
+    </div>
+</div>
+
+<div class="card Capital-card container-fluid my-2">
+    <div class="card-header pb-0">
+        <div class="d-flex justify-content-between">
+            <h4 class="card-title mg-b-0">
+                Capital List
+            </h4>
+            <div class="d-flex my-xl-auto right-content">
+                <button class="btn btn-primary" (click)="add_employee()">Add Capital</button>
+            </div>
+        </div>
+        <p class="txt-12 tx-gray-500 mb-2"></p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive userlist-table">
+            <table class="table card-table table-striped table-vcenter text-nowrap" id="example1">
+                <thead>
+                    <tr>
+                        <th class=" border-bottom-0">S.NO.</th>
+                        <th class=" border-bottom-0">Name</th>
+                        <th class=" border-bottom-0">INVERSMENT DATE</th>
+                        <th class=" border-bottom-0">AMOUNT</th>
+                        <th class=" border-bottom-0">SOURCE</th>
+                        <th class=" border-bottom-0">COMMENT</th>
+                        <th class="wd-150 border-bottom-0">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of emp_data;index as i">
+                        <td>{{data.sno}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.inversmentDate}}</td>
+                        <td>{{data.amount}}</td>
+                        <td>{{data.source}}</td>
+                        <td>{{data.comments}}</td>
+                        <td class="d-flex justify-content-between">
+                            <a title="View Settings" class="btn btn-sm btn-primary pointer" (click)="view_employee(i)">
+                                <i class="fa-solid fa-eye text-light"></i>
+                            </a>
+                            <a title="Edit Settings" class="btn btn-sm btn-warning pointer" (click)="edit_employee(i)">
+                                <i class="fa-solid fa-pen-to-square text-light"></i>
+                            </a>
+                            <a title="Delete Settings" class="btn btn-sm btn-danger pointer" (click)="alert_delete(i)">
+                                <i class="fa-solid fa-trash text-light"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
